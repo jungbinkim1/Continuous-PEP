@@ -42,22 +42,22 @@ stepsize = 0.01
 t_start = 0
 t_end = 10000
 
-t4, X4, v_raw, f4 = AGM_SC_ODE(X0, stepsize, cost, grad, mu, t_start, t_end)
+t_raw, X_raw, v_raw, f_raw = AGM_SC_ODE(X0, stepsize, cost, grad, mu, t_start, t_end)
 f_sol = f4[-1] + 1e-10
-N = t4.size
-v4 = np.zeros((N,))
+N = t_raw.size
+v_norm = np.zeros((N,))
 for i in range(N):
     if (i==0):
-        v4[i] = (la.norm(v_raw[1])) ** 2
+        v_norm[i] = (la.norm(v_raw[1])) ** 2
     else:
-        v4[i] = (la.norm(v_raw[i])) ** 2
+        v_norm[i] = (la.norm(v_raw[i])) ** 2
 
 plt.rcParams['text.usetex'] = True
 plt.rcParams["font.family"] = "serif"
 fig, ax = plt.subplots(figsize=(7,5))
 
-ax.loglog(t4, v4, label=r'AGM-SC ODE', color ='red')
-ax.loglog(t4, 2*np.exp(-mu**0.5 * t4)*(f4[0]-f_sol+0.5*mu*la.norm(X0-X4[-1])**2),'--',label='$O(e^{-\sqrt{\mu}t})$',color='black')
+ax.loglog(t_raw, v_raw, label=r'AGM-SC ODE', color ='red')
+ax.loglog(t_raw, 2*np.exp(-mu**0.5 * t_raw)*(f_raw[0]-f_sol+0.5*mu*la.norm(X0-X_raw[-1])**2),'--',label='$O(e^{-\sqrt{\mu}t})$',color='black')
 plt.xlabel(r'$t$',size=20)
 plt.ylabel(r'$\Vert \dot{X}(t) \Vert^2$',size=20)
 ax.set_xticklabels([])
