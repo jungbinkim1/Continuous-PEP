@@ -3,7 +3,7 @@ This repository includes codes to generate the figures presented in the paper "C
 
 ## Results
 
-### pep_kernel.py.py
+### pep_kernel.py
 Figure 1: Visualization of the PEP kernel for AGM-SC ODE (contour plot, surface plot).
 ![main](./results/contour_final-1.png)
 ![main](./results/surface_final-1.png)
